@@ -1,47 +1,15 @@
 const { Router } = require('express');
 const router = Router();
+const conn = require('../libs/connection')
 
-const users = [
-    { id: 1, name: 'Miguelito' },
-    { id: 2, name: 'Franklito' }
-];
+const CreateUserController = require('../controllers/users/create-user.controller');
+const GetUsersController = require('../controllers/users/get-users.controller');
+const GetUserController = require('../controllers/users/get-user.controller')
 
-function handleMessage(messageContent) {
-    const message = { message: messageContent };
-    return message;
-}
+router.get('/', GetUsersController.getUsers);
 
-router.get('/', (req, res) => {
-    res.json(users);
-});
+router.get('/:id', GetUserController.getUserById);
 
-router.get('/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const user = users.find(item => item.id === id);
-
-    if (user) {
-        res.json(user);
-    } else {
-        res.status(404).json(handleMessage("Usuário não encontrado."));
-    }
-});
-
-router.post('/', (req, res) => {
-    if (req.body.name) {
-        const newUser = {
-            id: users.length + 1,
-            name: req.body.name
-        };
-
-        users.push(newUser);
-        res.json(handleMessage("Usuário criado com sucesso."));
-    } else {
-        res.status(400).json(handleMessage("Erro ao criar o usuário. Nome não fornecido."));
-    }
-});
-
-router.delete('/', (req, res) => {
-    res.status(400).json(handleMessage("Rota DELETE não permitida."));
-});
+router.post('/insertuser', CreateUserController.insertUser)
 
 module.exports = router;
