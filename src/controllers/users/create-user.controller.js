@@ -2,9 +2,9 @@ const handleMessage = require('../../libs/message');
 const conn = require('../../libs/connection');
 
 exports.insertUser = (req, res) => {
-    const { name, cpf, password, role } = req.body;
+    const { name, cpf, phone, password, role } = req.body;
 
-    if (!name || !cpf || !password || !role) {
+    if (!name || !cpf || !phone || !password || !role) {
         const errorMessage = [];
 
         if (!name) {
@@ -12,6 +12,9 @@ exports.insertUser = (req, res) => {
         }
         if (!cpf) {
             errorMessage.push("CPF não informado.");
+        }
+        if (!phone) {
+            errorMessage.push("Telefone não informado.");
         }
         if (!password) {
             errorMessage.push("Senha não informada.");
@@ -23,8 +26,8 @@ exports.insertUser = (req, res) => {
         return res.status(400).json(handleMessage(`Erro ao criar o usuário. ${errorMessage.join(' ')}`));
     }
 
-    const query = 'INSERT INTO users (name, cpf, password, role) VALUES (?, ?, ?, ?)';
-    const values = [name, cpf, password, role];
+    const query = 'INSERT INTO users (name, cpf, phone, password, role) VALUES (?, ?, ?, ?, ?)';
+    const values = [name, cpf, phone, password, role];
 
     conn.query(query, values, function (err) {
         if (err) {
