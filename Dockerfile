@@ -20,8 +20,6 @@ WORKDIR /app
 
 COPY ./package* ./
 
-COPY ./uploads ./uploads
-
 RUN npm ci --omit=dev
 
 COPY --from=builder /app/dist ./dist
