@@ -9,6 +9,8 @@ RUN npm ci
 
 COPY ./src ./src
 
+COPY .swcrc ./
+
 RUN npm run build
 
 # Stage 2
