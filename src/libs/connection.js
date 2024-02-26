@@ -10,8 +10,6 @@ const conn = mysql.createConnection({
     port: process.env.DB_PORT,
 });
 
-console.log(conn);
-
 conn.connect((err) => {
     if (err) {
         console.error('Erro na conexão com o banco de dados:', err);
