@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/index.js",
+    "start:dev": "nodemon --watch src ./src/index.js",
     "dev": "nodemon src/index.js"
   },
   "keywords": [],
