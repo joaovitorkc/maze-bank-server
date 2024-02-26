@@ -9,7 +9,7 @@ RUN npm ci
 
 COPY ./src ./src
 
-RUN /usr/local/bin/npm run build
+RUN /usr/local/bin/npm run build -- --copy-files -d dist
 
 # Stage 2
 FROM node:20 AS release
